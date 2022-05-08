@@ -40,7 +40,38 @@ function moveDown() {
     }
 }
 
+// disparo
 
+function disparoLaser() {
+    let laser = criarElementoLaser();
+    areaJogo.appendChild(laser);
+    moveLaser(laser);
+}
+
+function criarElementoLaser() {
+    let positionX = parseInt(window.getComputedStyle(navePlayer).getPropertyValue('left'));
+    let positionY = parseInt(window.getComputedStyle(navePlayer).getPropertyValue('top'));
+    let novoLaser = document.createElement('img');
+
+    novoLaser.src = 'img/shoot.png';
+    novoLaser.classList.add('laser');
+    novoLaser.style.left = `${positionX}px`;
+    novoLaser.style.top = `${positionY - 10}px`;
+
+    return novoLaser;
+}
+
+function moveLaser(laser) {
+    let intervaloLaser = setInterval(() => {
+        let xPosition = parseInt(laser.style.left);
+
+        if(xPosition === 340) {
+            laser.remove();
+        }else {
+            laser.style.left = `${xPosition + 8}px`
+        }
+    }, 10);
+}
 
 
 window.addEventListener('keydown', voarNave);
